@@ -45,7 +45,34 @@ function expectedDist() {
 }
 
 const raw = execFileSync("npm", ["pack", "--dry-run", "--json"], { encoding: "utf8" });
-const files = JSON.parse(raw)[0].files.map((f) => f.path);
+
+/* `npm pack --json` has changed shape across majors: npm 10 returns an array
+   of pack results, npm 12 returns an object keyed by package name. Both carry
+   the same `files` array, so accept either — but never guess. A version that
+   silently produced no file list would turn this check into a rubber stamp,
+   which is worse than the crash that revealed the change: the whole point is
+   to assert the tarball's contents, and an empty assertion always passes. */
+function packedFiles(text) {
+  let parsed;
+  try {
+    parsed = JSON.parse(text);
+  } catch (e) {
+    throw new Error(`npm pack --json did not return JSON (${e.message}). Output began: ${text.slice(0, 120)}`);
+  }
+  const candidates = Array.isArray(parsed) ? parsed : Object.values(parsed ?? {});
+  const entry = candidates.find((c) => c && Array.isArray(c.files));
+  if (!entry) {
+    throw new Error(
+      "Could not find a file list in `npm pack --json` output. npm has changed its " +
+        `shape again — update scripts/check-pack.mjs. Top level was ${
+          Array.isArray(parsed) ? `an array of ${parsed.length}` : `an object with keys ${Object.keys(parsed ?? {}).join(", ")}`
+        }.`,
+    );
+  }
+  return entry.files.map((f) => f.path);
+}
+
+const files = packedFiles(raw);
 
 const expected = new Set([...EXPECTED, ...expectedDist()]);
 const problems = [];
