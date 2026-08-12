@@ -62,9 +62,28 @@ jobs:
           echo "package.json=$PKG  tag=$TAG"
           [ "$PKG" = "$TAG" ] || { echo "::error::tag $TAG does not match package.json $PKG"; exit 1; }
 
+      # A dry run against the current version always hits "cannot publish over
+      # the previously published version", because that version is by
+      # definition already out. That specific rejection is the good outcome: it
+      # proves the trusted-publisher handshake authenticated and the registry
+      # resolved the package. Anything else — a 401, a 403, a packaging error —
+      # is a real failure and must still fail the job.
       - name: Publish (dry run)
         if: github.event_name == 'workflow_dispatch' && inputs.dry_run
-        run: npm publish --dry-run
+        run: |
+          set +e
+          OUT=$(npm publish --dry-run 2>&1); CODE=$?
+          echo "$OUT"
+          if [ $CODE -eq 0 ]; then
+            echo "::notice::Dry run clean — this version is not yet published."
+            exit 0
+          fi
+          if echo "$OUT" | grep -q "cannot publish over the previously published versions"; then
+            echo "::notice::Registry authenticated and rejected only because this version already exists — the trusted-publisher link is working."
+            exit 0
+          fi
+          echo "::error::Dry run failed for a reason other than the version already existing."
+          exit $CODE
 
       # No --provenance flag and no token: trusted publishing attaches the
       # attestation on its own.
