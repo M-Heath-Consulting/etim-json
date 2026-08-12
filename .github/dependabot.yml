@@ -1,0 +1,19 @@
+version: 2
+updates:
+  # The MCP SDK and zod move quickly, and a lockfile that drifts is how a
+  # supply-chain problem stays invisible. Weekly, grouped so the noise is one
+  # PR rather than five.
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      dev-dependencies:
+        dependency-type: development
+      production-dependencies:
+        dependency-type: production
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly

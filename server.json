@@ -1,0 +1,47 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "ai.partsgraph/etim-json",
+  "description": "Query the ETIM classification model \u2014 search classes, resolve features, units and values \u2014 from a locally converted, ODC-BY-attributed model file. Read-only; ships no ETIM data.",
+  "repository": {
+    "url": "https://github.com/M-Heath-Consulting/etim-json",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "websiteUrl": "https://partsgraph.ai/glossary#etim",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "etim-json",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "npx",
+      "runtimeArguments": [
+        {
+          "type": "positional",
+          "value": "-y",
+          "description": "Skip the npx install prompt"
+        },
+        {
+          "type": "positional",
+          "value": "etim-json",
+          "description": "The package"
+        },
+        {
+          "type": "positional",
+          "value": "mcp",
+          "description": "Serve over stdio"
+        }
+      ],
+      "environmentVariables": [
+        {
+          "name": "ETIM_JSON_MODEL",
+          "description": "Absolute path to a converted etim-json model file (see `etim-json fetch`). Required: the server exits without a model. To try the tool with no data, run `npx -y etim-json mcp --demo` instead, which loads a clearly-marked synthetic model.",
+          "isRequired": true,
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}

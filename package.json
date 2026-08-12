@@ -1,0 +1,71 @@
+{
+  "name": "etim-json",
+  "version": "0.1.0",
+  "description": "The ETIM classification model as clean JSON \u2014 convert, validate, generate TypeScript types, search, and serve to AI agents over MCP. Ships no ETIM data; converts the model you are licensed to download.",
+  "keywords": [
+    "etim",
+    "etim-classification",
+    "product-data",
+    "classification",
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "typescript",
+    "json",
+    "b2b",
+    "pim"
+  ],
+  "license": "MIT",
+  "author": "Partsgraph (https://partsgraph.ai)",
+  "homepage": "https://partsgraph.ai/glossary#etim",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "etim-json": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "SECURITY.md",
+    "server.json"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepack": "npm run build",
+    "verify": "npm run typecheck && npm run build && npm run test && npm run check-pack",
+    "check-pack": "node scripts/check-pack.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M-Heath-Consulting/etim-json.git"
+  },
+  "bugs": {
+    "url": "https://github.com/M-Heath-Consulting/etim-json/issues"
+  }
+}

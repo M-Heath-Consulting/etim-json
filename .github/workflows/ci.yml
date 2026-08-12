@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Least privilege, and explicit rather than inherited: this job only reads the
+# tree. A public repo runs this workflow for every fork's pull request, so the
+# token it hands out should be able to do nothing else even if a dependency in
+# the install step turns hostile.
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      # Build FIRST: the adversarial suite's built-artifact block is guarded by
+      # existsSync(dist/cli.js), so testing before building skipped the real
+      # CLI and MCP stdio tests in CI entirely — the claim that they run was
+      # true locally and false on a clean checkout.
+      - run: npm run build
+      - run: npm test
+      # `npm pack --dry-run` only previews — it asserts nothing, and stayed
+      # green while package.json#files omitted the docs. This checks the real
+      # file list against an allowlist: docs present, no model data, nothing
+      # unexpected.
+      - run: node scripts/check-pack.mjs

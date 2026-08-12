@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.tgz
+.DS_Store
+coverage/
+
+# Converted ETIM models are the user's own licensed data — never committed.
+# The bundled demo model is generated from src/demo.ts, not stored.
+*.etim.json
+models/
