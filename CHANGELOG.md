@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.1 — 2026-08-12
+
+- Added `mcpName` to `package.json`, matching the server name in `server.json`
+  (`ai.partsgraph/etim-json`). The Official MCP Registry verifies npm package
+  ownership through this field; without it, publication is rejected. No code or
+  behaviour changes.
+
 ## 0.1.0 — 2026-08-12
 
 Initial release.

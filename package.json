@@ -1,6 +1,7 @@
 {
   "name": "etim-json",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "mcpName": "ai.partsgraph/etim-json",
   "description": "The ETIM classification model as clean JSON \u2014 convert, validate, generate TypeScript types, search, and serve to AI agents over MCP. Ships no ETIM data; converts the model you are licensed to download.",
   "keywords": [
     "etim",
