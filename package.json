@@ -21,7 +21,7 @@
   "homepage": "https://partsgraph.ai/glossary#etim",
   "type": "module",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.23.4"
   },
   "bin": {
     "etim-json": "./dist/cli.js"
