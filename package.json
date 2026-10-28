@@ -55,12 +55,21 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.2",
-    "zod": "^3.25.0"
+    "zod": "4.6.6"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
     "typescript": "^5.7.0",
-    "vitest": "^3.0.0"
+    "vitest": "4.1.12"
+  },
+  "overrides": {
+    "body-parser": "2.4.0",
+    "qs": "6.16.1",
+    "fast-uri": "3.1.9",
+    "ip-address": "10.7.4",
+    "tinypool": "2.1.2",
+    "vite": "7.3.7",
+    "source-map-js": "1.2.2"
   },
   "repository": {
     "type": "git",
