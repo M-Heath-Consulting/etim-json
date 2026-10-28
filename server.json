@@ -6,13 +6,13 @@
     "url": "https://github.com/M-Heath-Consulting/etim-json",
     "source": "github"
   },
-  "version": "0.1.1",
+  "version": "0.2.0",
   "websiteUrl": "https://partsgraph.ai/glossary#etim",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "etim-json",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "transport": {
         "type": "stdio"
       },

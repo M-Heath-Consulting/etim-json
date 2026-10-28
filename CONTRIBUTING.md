@@ -3,7 +3,7 @@
 Small tool, small rules.
 
 - `npm run verify` must pass — typecheck, all 54+ tests, build. CI runs the
-  same on Node 20/22/24.
+  same on Node 22.23.4, 24.22.1, and 26.12.1.
 - **Never commit ETIM model data** — not as a fixture, not as an example. The
   model is ETIM International's to distribute (ODC-BY). Test fixtures are
   synthetic, in the `EC99xxxx` code range, with "demo"/"fixture" in every
