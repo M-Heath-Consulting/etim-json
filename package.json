@@ -1,6 +1,6 @@
 {
   "name": "etim-json",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "mcpName": "ai.partsgraph/etim-json",
   "description": "The ETIM classification model as clean JSON \u2014 convert, validate, generate TypeScript types, search, and serve to AI agents over MCP. Ships no ETIM data; converts the model you are licensed to download.",
   "keywords": [
@@ -21,7 +21,7 @@
   "homepage": "https://partsgraph.ai/glossary#etim",
   "type": "module",
   "engines": {
-    "node": ">=22.23.4"
+    "node": "^22.23.4 || ^24.22.1 || ^26.12.1"
   },
   "bin": {
     "etim-json": "./dist/cli.js"

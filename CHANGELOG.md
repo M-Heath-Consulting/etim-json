@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0 — 2026-10-28
+
+- **Breaking (pre-1.0):** Node 20 support is dropped. `engines.node` is
+  `^22.23.4 || ^24.22.1 || ^26.12.1`, the minimum patched releases for
+  CVE-2026-111497 (Node2Shell). Earlier 22, 24, and 26 builds are below
+  that floor.
+
 ## 0.1.1 — 2026-08-12
 
 - Added `mcpName` to `package.json`, matching the server name in `server.json`
