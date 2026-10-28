@@ -29,8 +29,11 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22.23.4
+          node-version-file: .nvmrc
           registry-url: https://registry.npmjs.org
+
+      - name: Node floor (CVE-2026-111497)
+        run: node -e 'const [a,b,c]=process.versions.node.split(".").map(Number);const f={22:[23,4],24:[22,1],26:[12,1]}[a];if(!f||b<f[0]||(b===f[0]&&c<f[1])){console.error("Node "+process.version+" below Node2Shell floor");process.exit(1)}'
 
       # Trusted publishing needs npm >= 11.5.1; the runner ships something
       # older, and a stale npm fails with an auth error that reads like a

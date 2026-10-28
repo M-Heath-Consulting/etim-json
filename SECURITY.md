@@ -48,7 +48,7 @@ by tests in [`test/adversarial.test.ts`](https://github.com/M-Heath-Consulting/e
 
 - Two runtime dependencies: `@modelcontextprotocol/sdk` and `zod`.
 - CI runs typecheck, the full suite (including the adversarial suite) and a
-  pack inspection on Node 20/22/24.
+  pack inspection on Node 22.23.4, 24.22.1, and 26.12.1.
 
 ## Out of scope
 
