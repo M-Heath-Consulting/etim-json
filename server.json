@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
   "name": "ai.partsgraph/etim-json",
-  "description": "Query the ETIM classification model \u2014 search classes, resolve features, units and values \u2014 from a locally converted, ODC-BY-attributed model file. Read-only; ships no ETIM data.",
+  "description": "Query a locally converted ETIM classification model \u2014 classes, features, units, values. Read-only.",
   "repository": {
     "url": "https://github.com/M-Heath-Consulting/etim-json",
     "source": "github"
