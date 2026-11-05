@@ -1,5 +1,10 @@
 {
   "extends": "./tsconfig.json",
+  "compilerOptions": {
+    /* TypeScript 6+ refuses to infer this (TS5011). Pinning it keeps
+       emit at dist/*.js, the layout the package and pack check expect. */
+    "rootDir": "src"
+  },
   "include": ["src"],
   "exclude": ["test"]
 }
