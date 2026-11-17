@@ -1,8 +1,59 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "docker:pinDigests", "helpers:pinGitHubActionDigests"],
-  "vulnerabilityAlerts": {"enabled": true, "schedule": ["at any time"]},
+  "extends": [
+    "config:recommended",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "schedule": [
+      "at any time"
+    ]
+  },
   "packageRules": [
-    {"matchDepNames": ["node"], "matchManagers": ["nvm", "node-version", "dockerfile", "npm", "github-actions"], "groupName": "node runtime", "schedule": ["at any time"], "allowedVersions": "/^(22|24|26)\\./"}
-  ]
+    {
+      "matchDepNames": [
+        "node"
+      ],
+      "matchManagers": [
+        "nvm",
+        "nodenv",
+        "dockerfile",
+        "npm",
+        "github-actions"
+      ],
+      "groupName": "node runtime",
+      "schedule": [
+        "at any time"
+      ],
+      "allowedVersions": "/^(22|24|26)\\./"
+    },
+    {
+      "description": "Dependabot owns these ecosystems to avoid duplicate update PRs and repeated CI.",
+      "matchManagers": [
+        "github-actions",
+        "npm"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Renovate still maintains Node runtime inputs; Dependabot owns action revisions.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchDatasources": [
+        "node-version"
+      ],
+      "enabled": true,
+      "groupName": "node runtime"
+    }
+  ],
+  "schedule": [
+    "* 0-6 * * 1"
+  ],
+  "timezone": "Europe/London",
+  "prConcurrentLimit": 5,
+  "minimumReleaseAge": "7 days",
+  "automerge": false
 }

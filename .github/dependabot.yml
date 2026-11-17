@@ -1,19 +1,36 @@
+# Weekly grouped version updates. Cooldown does not apply to security updates.
+# Major updates remain separate; no dependency PR is auto-merged.
 version: 2
 updates:
-  # The MCP SDK and zod move quickly, and a lockfile that drifts is how a
-  # supply-chain problem stays invisible. Weekly, grouped so the noise is one
-  # PR rather than five.
-  - package-ecosystem: npm
-    directory: "/"
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
-    groups:
-      dev-dependencies:
-        dependency-type: development
-      production-dependencies:
-        dependency-type: production
-  - package-ecosystem: github-actions
-    directory: "/"
-    schedule:
-      interval: weekly
+- package-ecosystem: npm
+  directory: /
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 5
+  groups:
+    dev-dependencies:
+      dependency-type: development
+    production-dependencies:
+      dependency-type: production
+    security-updates:
+      applies-to: security-updates
+      patterns:
+      - '*'
+  cooldown:
+    default-days: 7
+- package-ecosystem: github-actions
+  directory: /
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 5
+  groups:
+    minor-and-patch:
+      patterns:
+      - '*'
+      update-types:
+      - minor
+      - patch
+    security-updates:
+      applies-to: security-updates
+      patterns:
+      - '*'
