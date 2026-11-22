@@ -50,3 +50,26 @@ jobs:
       # file list against an allowlist: docs present, no model data, nothing
       # unexpected.
       - run: node scripts/check-pack.mjs
+
+  # Single stable check for the ruleset to require: the matrix check names
+  # carry the Node version and change with every Node patch bump; this one
+  # does not. Runs even when a leg fails or is cancelled, and passes only if
+  # every job in `needs` succeeded.
+  verify-required:
+    name: verify
+    if: always()
+    needs:
+      - verify
+    permissions: {}
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every needed job to succeed
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: |
+          jq -r 'to_entries[] | "\(.key): \(.value.result)"' <<< "$NEEDS_JSON"
+          if ! jq -e 'length > 0 and all(.[]; .result == "success")' <<< "$NEEDS_JSON" > /dev/null; then
+            echo "::error::A required job did not succeed; see the results above."
+            exit 1
+          fi
